@@ -81,7 +81,6 @@ function searchByTraits(people) {
         } else if (action === 'reset') {
             matchingResults = people
         }
-
     }
 }
 
@@ -111,6 +110,8 @@ function filterPeopleByTraits(matchingResults, trait) {
             );
             break;
         // maybe to make a seperate method for cases were you don;t have options
+
+        // DOB is not a trait =) let's just leave it here
         case 'dob':
             traitSearch = prompt('Please enter the date of birth: m/d/year:')
             results = matchingResults.filter(person => person.dob === traitSearch);
@@ -140,6 +141,13 @@ function mainMenu(person, people) {
         case "info":
             displayPersonInfo(person);
             break;
+        case "family":
+            // let personFamily = findPersonFamily(person, people);
+            // displayPeople('Family', personFamily);
+            break;
+        case "descendants":
+        // let personDescendants = findPersonDescendants(person, people);
+        // displayPeople('Descendants', personDescendants);
         case "quit":
             return;
     }
@@ -162,6 +170,11 @@ function displayPersonInfo(person) {
     );
 }
 
+function displayPeople(displayTitle, peopleToDisplay) {
+    const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
+    alert(`${displayTitle}\n\n${formatedPeopleDisplayText}`);
+}
+
 function exitOrRestart(people) {
     const userExitOrRestartChoice = validatedPrompt(
         'Would you like to exit or restart?',
@@ -175,19 +188,6 @@ function exitOrRestart(people) {
             return app(people);;
     }
 }
-
-
-
-
-
-
-
-
-function displayPeople(displayTitle, peopleToDisplay) {
-    const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
-    alert(`${displayTitle}\n\n${formatedPeopleDisplayText}`);
-}
-
 
 function validatedPrompt(message, acceptableAnswers) {
     acceptableAnswers = acceptableAnswers.map(aa => aa.toLowerCase());
