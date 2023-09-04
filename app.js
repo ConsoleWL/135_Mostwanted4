@@ -11,7 +11,7 @@ function displayWelcome() {
 function runSearchMenu(people) {
     const searchResults = searchPeopleDataSet(people);
     if (searchResults.length > 1) {
-        alert(`People found ${searchResults}`);
+        displayPeople('Search Results', searchResults);
     }
     else if (searchResults.length === 1) {
         const person = searchResults[0];
@@ -60,22 +60,27 @@ function searchByName(people) {
 }
 
 function searchByTraits(people) {
-    const traitList = ['gender', 'dob', 'height', 'weight', 'eyeColor', 'occupation'];
-
     let matchingResults = people;
 
     while (true) {
-        const trait = validatedPrompt(
-            `People found: ${matchingResults.length}. Choose a trait to search further done\nPress "reset" to start searvh again\nPress "Display" to display results:`,
-            ['gender', 'dob', 'height', 'weight', 'eyeColor', 'occupation', 'reset', 'display']
-        );
 
-        if (trait === 'reset') {
-            searchByTraits(people);
-        }
+        const trait = validatedPrompt(
+            `Choose a trait to search further done\nPress "reset" to start search again\n`,
+            ['gender', 'dob', 'height', 'weight', 'eyeColor', 'occupation', 'reset']
+        );
 
         matchingResults = filterPeopleByTraits(matchingResults, trait);
 
+        let action = validatedPrompt(
+            `Matching results: ${matchingResults.length}\nEnter "Display" to finish the search\nEnter "search to search further down`,
+            ['display', 'reset', 'search']
+        );
+
+        if (action === 'display') {
+            return matchingResults;
+        } else if (action === 'reset') {
+            matchingResults = people
+        }
 
     }
 }
@@ -120,8 +125,6 @@ function filterPeopleByTraits(matchingResults, trait) {
             traitSearch = parseInt(traitSearchString);
             results = matchingResults.filter(person => person.weight === traitSearch);
             break;
-
-        // If done then we should break from loop above
     }
 
     return results;
@@ -180,6 +183,10 @@ function exitOrRestart(people) {
 
 
 
+function displayPeople(displayTitle, peopleToDisplay) {
+    const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
+    alert(`${displayTitle}\n\n${formatedPeopleDisplayText}`);
+}
 
 
 function validatedPrompt(message, acceptableAnswers) {
