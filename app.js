@@ -142,8 +142,8 @@ function mainMenu(person, people) {
             displayPersonInfo(person);
             break;
         case "family":
-            // let personFamily = findPersonFamily(person, people);
-            // displayPeople('Family', personFamily);
+            let personFamily = findPersonFamily(person, people);
+            displayPeople('Family', personFamily);
             break;
         case "descendants":
         // let personDescendants = findPersonDescendants(person, people);
@@ -168,6 +168,22 @@ function displayPersonInfo(person) {
         Parents: ${person.parents}
         Spouse: ${person.currentSpouse}`
     );
+}
+
+function findPersonFamily(person, people) {
+    const familyMembers = [];
+
+    if (person.currentSpouse !== null) {
+        familyMembers.push(people.find(per => per.id === person.currentSpouse));
+    }
+
+    if (person.parents.length > 0) {
+        for (i = 0; i < person.parents.length; i++) {
+            familyMembers.push(people.find(per => per.id === person.parents[i]));
+        }
+    }
+
+    return familyMembers;
 }
 
 function displayPeople(displayTitle, peopleToDisplay) {
