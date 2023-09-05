@@ -133,7 +133,7 @@ function filterPeopleByTraits(matchingResults, trait) {
 function mainMenu(person, people) {
     const mainMenuUserActionChoice = validatedPrompt(
         `Person: ${person.firstName} ${person.lastName} \n\nDo you want to know threir full information?`,
-        ['info', 'family', 'descendats', 'quit']
+        ['info', 'family', 'descendants', 'quit']
     );
 
     switch (mainMenuUserActionChoice) {
@@ -170,20 +170,11 @@ function displayPersonInfo(person) {
 }
 
 function findPersonFamily(person, people) {
-
-    let familyMembersWithRelationToPerson = [];
     const familyMembers = [];
 
     if (person.currentSpouse !== null) {
         familyMembers.push(people.find(per => per.id === person.currentSpouse));
-
-        familyMembersWithRelationToPerson = familyMembers.map(function (el) {
-            return `Spouce: ${el.firstName} ${el.lastName}`
-        });
     }
-
-
-
 
     if (person.parents.length > 0) {
         for (i = 0; i < person.parents.length; i++) {
@@ -211,12 +202,33 @@ function findPersonFamily(person, people) {
 }
 
 function findPersonDescendants(person, people) {
-
-    // how to find descdendants
-    // 1. We need to go throught the whole list and see if they have in people.parent id of the person id
-    // 2. Then people who has those id we need to go through the list and see if they have id 
+    // 1. go through list and find if person.id  === in people.parents.id.
+    // 2. then we need to go throuth the list again and see if id descendants[] people.id  === people.parents[];
     // 3. It is goint to be some kind of recurstion
+    //let array = [];
     let descendants = [];
+
+
+    // for recurtion it has to be termination state
+    // if = 0  we return;
+    // if parents === null) 
+    // return
+
+
+    descendants = people.filter(p => p.parents.includes(person.id));
+
+    // descendants = people.filter(function (per) {
+    //     if (per.parents.includes(person.id)) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // })
+
+
+
+    // findPersonDescendants(person, people);
+    return descendants;
 }
 
 function displayPeople(displayTitle, peopleToDisplay) {
