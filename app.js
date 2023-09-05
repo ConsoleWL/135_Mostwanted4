@@ -111,8 +111,7 @@ function filterPeopleByTraits(matchingResults, trait) {
             break;
         // maybe to make a seperate method for cases were you don;t have options
 
-        // DOB is not a trait =) let's just leave it here
-        case 'dob':
+        case 'dob': // DOB is not a trait =) let's just leave it here
             traitSearch = prompt('Please enter the date of birth: m/d/year:')
             results = matchingResults.filter(person => person.dob === traitSearch);
             break;
@@ -146,8 +145,8 @@ function mainMenu(person, people) {
             displayPeople('Family', personFamily);
             break;
         case "descendants":
-        // let personDescendants = findPersonDescendants(person, people);
-        // displayPeople('Descendants', personDescendants);
+            let personDescendants = findPersonDescendants(person, people);
+            displayPeople('Descendants', personDescendants);
         case "quit":
             return;
     }
@@ -183,11 +182,28 @@ function findPersonFamily(person, people) {
         }
     }
 
-    // if (person.parents.length > 0) {
-    //   // nothing is working out only parents not simblings
-    // }
+    let siblings = [];
+
+    siblings = people.filter(function (per) {
+        for (i = 0; i < person.parents.length; i++) {
+            if (per.parents.includes(person.parents[i]) && per.id !== person.id) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    });
 
     return familyMembers;
+}
+
+function findPersonDescendants(person, people) {
+
+    // how to find descdendants
+    // 1. We need to go throught the whole list and see if they have in people.parent id of the person id
+    // 2. Then people who has those id we need to go through the list and see if they have id 
+    // 3. It is goint to be some kind of recurstion
+    let descendants = [];
 }
 
 function displayPeople(displayTitle, peopleToDisplay) {
