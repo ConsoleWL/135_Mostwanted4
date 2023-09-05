@@ -194,6 +194,10 @@ function findPersonFamily(person, people) {
         }
     });
 
+    for (let i = 0; i < siblings.length; i++) {
+        familyMembers.push(siblings[i]);
+    }
+
     return familyMembers;
 }
 
