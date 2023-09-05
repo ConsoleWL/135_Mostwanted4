@@ -170,11 +170,20 @@ function displayPersonInfo(person) {
 }
 
 function findPersonFamily(person, people) {
+
+    let familyMembersWithRelationToPerson = [];
     const familyMembers = [];
 
     if (person.currentSpouse !== null) {
         familyMembers.push(people.find(per => per.id === person.currentSpouse));
+
+        familyMembersWithRelationToPerson = familyMembers.map(function (el) {
+            return `Spouce: ${el.firstName} ${el.lastName}`
+        });
     }
+
+
+
 
     if (person.parents.length > 0) {
         for (i = 0; i < person.parents.length; i++) {
