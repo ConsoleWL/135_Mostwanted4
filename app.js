@@ -110,8 +110,6 @@ function filterPeopleByTraits(matchingResults, trait) {
             );
             results = matchingResults.filter(person => person.occupation === traitSearch);
             break;
-
-        // maybe to make a seperate method for cases were you don't have options but just a value;
         case 'dob': // DOB is not a trait =) let's just leave it here
             traitSearch = prompt('Please enter the date of birth: m/d/year:')
             results = matchingResults.filter(person => person.dob === traitSearch);
