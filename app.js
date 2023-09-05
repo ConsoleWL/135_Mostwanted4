@@ -108,9 +108,10 @@ function filterPeopleByTraits(matchingResults, trait) {
                 `Please select occupation`,
                 ['programmer', 'assistant', 'landscaper', 'assistant', 'nurse', 'student', 'architect', 'doctor', 'politician']
             );
+            results = matchingResults.filter(person => person.occupation === traitSearch);
             break;
-        // maybe to make a seperate method for cases were you don;t have options
 
+        // maybe to make a seperate method for cases were you don't have options but just a value;
         case 'dob': // DOB is not a trait =) let's just leave it here
             traitSearch = prompt('Please enter the date of birth: m/d/year:')
             results = matchingResults.filter(person => person.dob === traitSearch);
@@ -216,61 +217,6 @@ function findPersonDescendants(person, people) {
 
     return descendants;
 }
-
-// function findPersonDescendants(person, people) {
-//     let descendants = [];
-//     const kids = [];
-//     function findPersonDescendantsRecursive(person) {
-//         kids = people.filter(p => p.parents.includes(person.id));
-//         kids.forEach(kid => {
-//             descendants.push(kid);
-//             findPersonDescendantsRecursive(kid)
-//         })
-//     }
-
-//     findPersonDescendantsRecursive(person);
-
-//     return descendants;
-// }
-// function findPersonDescendants(person, people) {
-//     let descendants = [];
-//     const kids = [];
-//     function findPersonDescendantsRecursive(person) {
-//         kids = people.filter(p => p.parents.includes(person.id));
-//         kids.forEach(kid => {
-//             descendants.push(findPersonDescendantsRecursive(kid));
-//         })
-//     }
-
-//     findPersonDescendantsRecursive(person);
-
-//     return descendants;
-// }
-
-// function findPersonDescendants(person, people) {
-//     let descendants = [];
-
-//     const kids = people.filter(p => p.parents.includes(person.id));
-
-//     const grandKids = [];
-
-//     kids.forEach(kid => {
-//         grandKids = kids.filter(k => k.parents.includes(kid.id));
-//     })
-
-//     return descendants;
-// }
-
-
-// // Clean function
-// function findPersonDescendants(person, people) {
-//     let descendants = [];
-//     let kids = [];
-
-//     kids = people.filter(p => p.parents.includes(person.id));
-
-//     return descendants;
-// }
 
 function displayPeople(displayTitle, peopleToDisplay) {
     const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
