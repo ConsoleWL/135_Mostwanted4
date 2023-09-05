@@ -202,34 +202,75 @@ function findPersonFamily(person, people) {
 }
 
 function findPersonDescendants(person, people) {
-    // 1. go through list and find if person.id  === in people.parents.id.
-    // 2. then we need to go throuth the list again and see if id descendants[] people.id  === people.parents[];
-    // 3. It is goint to be some kind of recurstion
-    //let array = [];
     let descendants = [];
 
+    function findPersonDescendantsRecursive(person) {
+        kids = people.filter(p => p.parents.includes(person.id));
+        kids.forEach(kid => {
+            descendants.push(kid);
+            findPersonDescendantsRecursive(kid);
+        })
+    }
 
-    // for recurtion it has to be termination state
-    // if = 0  we return;
-    // if parents === null) 
-    // return
+    findPersonDescendantsRecursive(person);
 
-
-    descendants = people.filter(p => p.parents.includes(person.id));
-
-    // descendants = people.filter(function (per) {
-    //     if (per.parents.includes(person.id)) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // })
-
-
-
-    // findPersonDescendants(person, people);
     return descendants;
 }
+
+// function findPersonDescendants(person, people) {
+//     let descendants = [];
+//     const kids = [];
+//     function findPersonDescendantsRecursive(person) {
+//         kids = people.filter(p => p.parents.includes(person.id));
+//         kids.forEach(kid => {
+//             descendants.push(kid);
+//             findPersonDescendantsRecursive(kid)
+//         })
+//     }
+
+//     findPersonDescendantsRecursive(person);
+
+//     return descendants;
+// }
+// function findPersonDescendants(person, people) {
+//     let descendants = [];
+//     const kids = [];
+//     function findPersonDescendantsRecursive(person) {
+//         kids = people.filter(p => p.parents.includes(person.id));
+//         kids.forEach(kid => {
+//             descendants.push(findPersonDescendantsRecursive(kid));
+//         })
+//     }
+
+//     findPersonDescendantsRecursive(person);
+
+//     return descendants;
+// }
+
+// function findPersonDescendants(person, people) {
+//     let descendants = [];
+
+//     const kids = people.filter(p => p.parents.includes(person.id));
+
+//     const grandKids = [];
+
+//     kids.forEach(kid => {
+//         grandKids = kids.filter(k => k.parents.includes(kid.id));
+//     })
+
+//     return descendants;
+// }
+
+
+// // Clean function
+// function findPersonDescendants(person, people) {
+//     let descendants = [];
+//     let kids = [];
+
+//     kids = people.filter(p => p.parents.includes(person.id));
+
+//     return descendants;
+// }
 
 function displayPeople(displayTitle, peopleToDisplay) {
     const formatedPeopleDisplayText = peopleToDisplay.map(person => `${person.firstName} ${person.lastName}`).join('\n');
