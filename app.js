@@ -183,6 +183,10 @@ function findPersonFamily(person, people) {
         }
     }
 
+    // if (person.parents.length > 0) {
+    //   // nothing is working out only parents not simblings
+    // }
+
     return familyMembers;
 }
 
