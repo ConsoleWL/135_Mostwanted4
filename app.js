@@ -1,13 +1,26 @@
+
+/**
+ * 
+ * @param {*} people Data of people comes in
+ * @returns 
+ */
 function app(people) {
     displayWelcome();
     runSearchMenu(people);
     return exitOrRestart(people);
 }
 
+/**
+ * Displaying a welcome message
+ */
 function displayWelcome() {
     alert('Hello and welcome to the Most Wanted search application!');
 }
 
+/**
+ * Get the final result from the search and display the results
+ * @param {*} people Data of people comes in
+ */
 function runSearchMenu(people) {
     const searchResults = searchPeopleDataSet(people);
     if (searchResults.length > 1) {
@@ -22,6 +35,11 @@ function runSearchMenu(people) {
     }
 }
 
+/**
+ * 
+ * @param {*} people Data of people comes in
+ * @returns returns the final result of people Which return to the runSearchMenu 
+ */
 function searchPeopleDataSet(people) {
     const searchTypeChoice = validatedPrompt(
         'Please enter in what type of search you would like to perform',
@@ -41,6 +59,10 @@ function searchPeopleDataSet(people) {
     return results;
 }
 
+/**
+ * @param {*} people Data of people comes in
+ * @returns  the results of the search by ID
+ */
 function searchById(people) {
     const idToSearchForString = prompt("Please enter the id of the person you are searcing for");
     const idToSearchForInt = parseInt(idToSearchForString);
@@ -48,6 +70,11 @@ function searchById(people) {
     return idFilterResults;
 }
 
+/**
+ * 
+ * @param {*} people Data of people comes in
+ * @returns a person from the data search by name and lastname
+ */
 function searchByName(people) {
     const firstNameToSearchFor = prompt('Please enter the first name of the  person you are searching for:');
     const lastNameToSearchFor = prompt('Please enter the last name of the person you are searching for:');
@@ -59,6 +86,13 @@ function searchByName(people) {
     return fullNameSearchResults;
 }
 
+/**
+ * 
+ * @param {*} people Data of people comes in
+ * @Function is searching people by traits. 
+ * @Function when trait is set we call another function
+ * @returns return a person or a list of people found by particular trait
+ */
 function searchByTraits(people) {
     let matchingResults = people;
 
@@ -83,6 +117,7 @@ function searchByTraits(people) {
         }
     }
 }
+
 
 function filterPeopleByTraits(matchingResults, trait) {
     let results = [];
